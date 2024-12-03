@@ -6,6 +6,7 @@
 # 3. gcloud CLIを用いて、Google Cloudプロジェクトへのアクセスが成功することを確認。
 
 
+
 name: Connect to Google Cloud via OIDC
 
 on:
