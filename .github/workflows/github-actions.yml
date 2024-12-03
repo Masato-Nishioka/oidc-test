@@ -1,0 +1,34 @@
+# このワークフローは、GitHub ActionsからGoogle CloudにOIDCを使用して認証し、アクセスの疎通確認を行います。
+# トリガーはmainブランチへのpushイベントで発生します。
+# ジョブでは以下を実行します：
+# 1. リポジトリのコードをクローン。
+# 2. Googleが提供する認証アクションを使い、OIDCトークンを利用してGoogle Cloudへ認証。
+# 3. gcloud CLIを用いて、Google Cloudプロジェクトへのアクセスが成功することを確認。
+
+name: Connect to Google Cloud via OIDC
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-oidc:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
+
+      - name: Verify access to Google Cloud
+        run: |
+          gcloud projects list
