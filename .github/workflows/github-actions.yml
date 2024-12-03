@@ -41,3 +41,7 @@ jobs:
 
   # projects/214995143414/locations/global/workloadIdentityPools/github-pool/providers/github-provider
   # ）になっているかをチェック
+
+
+# IAM Service Account Credentials API有効化
+# Cloud Resource Manager API有効化
