@@ -33,3 +33,11 @@ jobs:
       - name: Verify access to Google Cloud
         run: |
           gcloud projects list
+
+  # WORKLOAD_IDENTITY_PROVIDER の値が正確な形式（例えば、
+  
+  
+  # projects/{PROJECT_NUMBER}/locations/global/workloadIdentityPools/{POOL_ID}/providers/{PROVIDER_ID}）になっているかをチェック
+
+  # projects/214995143414/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+  # ）になっているかをチェック
