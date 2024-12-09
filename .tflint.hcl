@@ -5,6 +5,7 @@ plugin "google" {
 }
 
 rule "google_storage_bucket_location" {
+    enabled     = true
     description = "チェック対象のリージョンを指定します"
-    pattern = "asia-northeast1|us-central1|europe-west1"
+    pattern     = "asia-northeast1|us-central1|europe-west1"
 }
