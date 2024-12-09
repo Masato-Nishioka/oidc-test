@@ -1,4 +1,4 @@
-name: TFLint
+name: Terraform Lint Workflow
 
 on:
   push:
