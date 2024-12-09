@@ -3,7 +3,7 @@ name: TFLint
 on:
   push:
     branches:
-      - main
+      - feature/tflint
 
 jobs:
   tflint:
