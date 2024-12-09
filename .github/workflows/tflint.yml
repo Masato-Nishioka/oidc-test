@@ -1,0 +1,29 @@
+name: TFLint
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tflint:
+    runs-on: ubuntu-latest
+
+    steps:
+      # リポジトリのクローン
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+
+      # TFLintを実行
+      - name: Run TFLint
+        run: tflint --config .tflint.hcl
+
+      # (オプション) TFLintの結果を出力する
+      - name: Display TFLint output
+        run: cat .tflint.hcl
