@@ -1,6 +1,5 @@
 #参考：https://zenn.dev/erueru_tech/articles/a32fead5669031
 
-$ vi /tmp/sample-project/terraform/.tflint.hcl
 # ref. https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/config.md
 config {
 }
