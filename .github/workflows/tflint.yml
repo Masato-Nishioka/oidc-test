@@ -20,10 +20,8 @@ jobs:
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v4
 
-      # TFLintを実行
-      - name: Run TFLint
-        run: tflint --config .tflint.hcl
+      - name: Init TFLint
+        run: tflint --init -c .tflint.hcl
 
-      # (オプション) TFLintの結果を出力する
-      - name: Display TFLint output
-        run: cat .tflint.hcl
+      - name: Run TFLint
+        run: tflint -c .tflint.hcl
