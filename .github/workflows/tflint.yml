@@ -23,6 +23,6 @@ jobs:
         run: |
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
       - name: Initialize TFLint Plugins
-        run: tflint --init
+        run: tflint --init -c .tflint.hcl
       - name: Run TFLint
-        run: tflint
+        run: tflint -c .tflint.hcl
