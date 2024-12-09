@@ -5,6 +5,11 @@ on:
     branches:
       - feature/tflint
 
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
 jobs:
   tflint:
     runs-on: ubuntu-latest
