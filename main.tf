@@ -11,10 +11,10 @@ terraform {
 
 provider "google" {
   project = "oidc-test-project-443611"
-  region  = "asia-northeast1"
+  region  = var.location
 }
 
 resource "google_storage_bucket" "tfcmt-cicd-test" {
   name     = "tfcmt-cicd-test"
-  location = "asia-northeast100"
+  location = var.location
 }
