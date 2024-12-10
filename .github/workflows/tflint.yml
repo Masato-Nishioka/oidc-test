@@ -19,10 +19,19 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.3.0
+
       - name: Install TFLint
         run: |
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+      - name: Check TFLint Version
+        run: tflint --version
+
       - name: Initialize TFLint Plugins
         run: tflint --init -c .tflint.hcl
+          # Start Generation Here
+      - name: Show TFLint Path
+        run: which tflint
+
       - name: Run TFLint
         run: tflint -c .tflint.hcl
