@@ -28,10 +28,10 @@ jobs:
         run: tflint --version
 
       - name: Initialize TFLint Plugins
-        run: tflint --init -c .tflint.hcl
+        run: tflint --init -c ./.tflint.hcl
           # Start Generation Here
       - name: Show TFLint Path
         run: which tflint
 
       - name: Run TFLint
-        run: tflint -c .tflint.hcl
+        run: tflint -c ./.tflint.hcl
