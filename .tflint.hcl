@@ -13,7 +13,7 @@
 
 plugin "google" {
   enabled = true
-  version = "0.17.0"  # 使用したいバージョンを指定
+  version = "0.17.0"  # 最新の互換性のあるバージョンに更新
   project = "oidc-test-project-443611" # GCPプロジェクトIDを指定
   region  = "asia-northeast1"         # デフォルトのリージョンを指定
   source  = "github.com/terraform-linters/tflint-ruleset-google"
