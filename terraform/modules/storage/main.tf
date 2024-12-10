@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "google" {
-  project = "tfcmt-cicd-test"
+  project = "project-id"
   region  = "asia-northeast1"
 }
 
