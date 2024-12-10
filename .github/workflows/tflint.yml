@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
         with:
@@ -33,14 +34,23 @@ jobs:
       - name: Show TFLint Path
         run: which tflint
 
-      - name: Run TFLint
-        run: tflint -c ./terraform/.tflint.hcl
-
-      - name: Find .tflint.d Directory
+      - name: Find .tflint.d Directory and Show TFLint Path
         run: |
           if [ -d "./.tflint.d" ]; then
             echo ".tflint.d ディレクトリが見つかりました。"
             ls -la ./.tflint.d
           else
-            echo ".tflint.d ディレクトリは存在しません。"
+            echo ".tflint.d ディレクトリは存在しません。探索を開始します。"
+            # 現在のディレクトリ以下で.tflint.dを検索
+            FIND_RESULT=$(find . -type d -name ".tflint.d" 2>/dev/null)
+            if [ -n "$FIND_RESULT" ]; then
+              echo ".tflint.d ディレクトリが見つかりました: $FIND_RESULT"
+              ls -la "$FIND_RESULT"
+            else
+              echo ".tflint.d ディレクトリは見つかりませんでした。"
+            fi
           fi
+          which tflint
+
+      - name: Run TFLint
+        run: tflint -c ./terraform/.tflint.hcl
