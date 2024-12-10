@@ -35,3 +35,12 @@ jobs:
 
       - name: Run TFLint
         run: tflint -c ./terraform/.tflint.hcl
+
+      - name: Find .tflint.d Directory
+        run: |
+          if [ -d "./.tflint.d" ]; then
+            echo ".tflint.d ディレクトリが見つかりました。"
+            ls -la ./.tflint.d
+          else
+            echo ".tflint.d ディレクトリは存在しません。"
+          fi
