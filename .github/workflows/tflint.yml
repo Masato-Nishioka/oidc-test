@@ -53,4 +53,4 @@ jobs:
           which tflint
 
       - name: Run TFLint
-        run: tflint -c ./terraform/.tflint.hcl
+        run: tflint
