@@ -13,7 +13,7 @@ provider "google" {
   region  = "asia-northeast1"
 }
 
-resource "google_storage_bucket" "example" {
+resource "google_storage_bucket" "example-bucket" {
   name          = "${var.env}-example-bucket"
   location      = "ASIA"
   storage_class = "MULTI_REGIONAL"
