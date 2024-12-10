@@ -1,56 +1,40 @@
-name: TFLint
-
+# https://github.com/terraform-linters/setup-tflint
+name: Lint
 on:
   push:
-    branches:
-      - feature/tflint
-
-permissions:
-  id-token: write
-  contents: read
-  pull-requests: write
+    branches: [ master ]
+  pull_request:
 
 jobs:
   tflint:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+      name: Checkout source code
 
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.3.0
+    - uses: actions/cache@v4
+      name: Cache plugin dir
+      with:
+        path: ~/.tflint.d/plugins
+        key: ${{ matrix.os }}-tflint-${{ hashFiles('.tflint.hcl') }}
 
-      - name: Install TFLint
-        run: |
-          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+    - uses: terraform-linters/setup-tflint@v4
+      name: Setup TFLint
+      with:
+        tflint_version: v0.52.0
+    - name: Show version
+      run: tflint --version
 
-      - name: Check TFLint Version
-        run: tflint --version
+    - name: Init TFLint
+      run: tflint --init
+      env:
+        # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
+        GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Initialize TFLint Plugins
-        run: tflint --init -c ./terraform/.tflint.hcl
-
-      - name: Show TFLint Path
-        run: which tflint
-
-      - name: Find .tflint.d Directory and Show TFLint Path
-        run: |
-          if [ -d "./.tflint.d" ]; then
-            echo ".tflint.d ディレクトリが見つかりました。"
-            ls -la ./.tflint.d
-          else
-            echo ".tflint.d ディレクトリは存在しません。探索を開始します。"
-            # 現在のディレクトリ以下で.tflint.dを検索
-            FIND_RESULT=$(find . -type d -name ".tflint.d" 2>/dev/null)
-            if [ -n "$FIND_RESULT" ]; then
-              echo ".tflint.d ディレクトリが見つかりました: $FIND_RESULT"
-              ls -la "$FIND_RESULT"
-            else
-              echo ".tflint.d ディレクトリは見つかりませんでした。"
-            fi
-          fi
-          which tflint
-
-      - name: Run TFLint
-        run: tflint
+    - name: Run TFLint
+      run: tflint -f compact
